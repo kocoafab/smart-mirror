@@ -99,6 +99,16 @@ dt {
     margin-bottom: 20px;
 }
 
+.greeting {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;    
+    font-size: 30px;
+}
+
+.color-yellow {
+	color: #ff0;
+}
+
 .commands {
     width: 450px;
     text-align: left;
@@ -145,7 +155,7 @@ ul.calendar {
     width: 230px;
 }
 
-.weather-today .tempreture {
+.weather-today .temperature {
     font-size: 60px;
 }
 
@@ -168,7 +178,7 @@ ul.calendar {
     width: 50px;
 }
 
-.weather-week .tempreture {
+.weather-week .temperature {
     display: inline-block;
     width: 60px;
 }

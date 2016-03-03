@@ -104,6 +104,12 @@
                 $scope.focus = "sleep";
             });
 
+            // Hide everything and "sleep"
+            AnnyangService.addCommand('Clear', function() {
+                console.debug("clear screen..");
+                $scope.focus = "sleep";
+            });
+            
             // Go back to default view
             AnnyangService.addCommand('Wake up', defaultView);
 
@@ -123,9 +129,9 @@
                 });
              });
 
-	    AnnyangService.addCommand('weather', function() {
-		console.debug("Show Weather!");
-		$scope.focus = "weather";
+		    AnnyangService.addCommand('weather', function() {
+				console.debug("Show Weather!");
+				$scope.focus = "weather";
             });
 
 
@@ -167,6 +173,7 @@
             AnnyangService.addCommand('My (name is)(name\'s) *name', function(name) {
                 console.debug("Hi", name, "nice to meet you");
                 $scope.user.name = name;
+                $scope.focus = "greeting";
             });
 
             // Set a reminder

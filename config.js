@@ -7,21 +7,11 @@ var config = {
         key : "597e0497474862341df6133399876c5b", // Your forcast.io api key
         units : "auto" // See forcast.io documentation if you are getting the wrong units
     },
-    // Philips Hue
-    hue : {
-        ip : "192.168.1.99", // The IP address of your hue base
-        uername : "as9234ho0dfhoq01f2as3yh4m0", // The username used to control your hue
-        group : "0", // The group you'd like the mirror to control (0 is all hue lights connected to your hub)
-    },
     // Calendar (An array of iCals)
     calendar: {
-      icals : ["https://calendar.google.com/calendar/ical/ohms%40kocoa.or.kr/public/basic.ics"],
+      icals : ["https://calendar.google.com/calendar/ical/support%40kocoa.or.kr/public/basic.ics"],
       maxResults: 9, // Number of calender events to display (Defaults is 9)
       maxDays: 365 // Number of days to display (Default is one year)
-    },
-    // Giphy
-    giphy: {
-      key : "dc6zaTOxFJmzC" // Your Gliphy API key
     },
     traffic: {
       key : "AijFr6G8qf7W7FabTbwZMSCqLDHJYpUWLL2qd7GF5x5wxsVLp8Sa7PZXCghDnEmO", // Bing Maps API Key
