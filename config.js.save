@@ -1,0 +1,34 @@
+var config = {
+    // Lenguage for the mirror (currently not implemented)
+    lenguage : "en",
+    greeting : ["Hi, KocoaFAB!", "KocoaFAB", "안녕~"], // An array of greetings to randomly choose from
+    // forcast.io
+    forcast : {
+        key : "597e0497474862341df6133399876c5b", // Your forcast.io api key
+        units : "auto" // See forcast.io documentation if you are getting the wrong units
+    },
+    // Philips Hue
+    hue : {
+        ip : "192.168.1.99", // The IP address of your hue base
+        uername : "as9234ho0dfhoq01f2as3yh4m0", // The username used to control your hue
+        group : "0", // The group you'd like the mirror to control (0 is all hue lights connected to your hub)
+    },
+    // Calendar (An array of iCals)
+    calendar: {
+      icals : ["https://calendar.google.com/calendar/ical/ohms%40kocoa.or.kr/public/basic.ics"],
+      maxResults: 9, // Number of calender events to display (Defaults is 9)
+      maxDays: 365 // Number of days to display (Default is one year)
+    },
+    // Giphy
+    giphy: {
+      key : "dc6zaTOxFJmzC" // Your Gliphy API key
+    },
+    traffic: {
+      key : "AijFr6G8qf7W7FabTbwZMSCqLDHJYpUWLL2qd7GF5x5wxsVLp8Sa7PZXCghDnEmO", // Bing Maps API Key
+      mode : "Driving", // Possibilities: Driving / Transit / Walking
+      origin : "35sydi0 5th Ave, New York, NY 10118", // Start of your trip. Human readable address.
+      destination : "1 Dr Carlton B Goodlett Pl, San Francisco, CA 94102", // Destination of your trip. Human readable address.
+      name : "work", // Name of your destination ex: "work"
+      reload_interval : 5 // Number of minutes the information is refreshed
+    }
+}
