@@ -167,7 +167,7 @@
             });
 
             // Change name
-            AnnyangService.addCommand('(I am)(I\'m) *name', function(name) {
+            AnnyangService.addCommand('I am (I\'m) *name', function(name) {
                 console.debug("I am ", name, " nice to meet you");
                 $scope.user.name = name;
                 $scope.focus = "greeting";

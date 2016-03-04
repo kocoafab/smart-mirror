@@ -2,10 +2,12 @@
     overflow: hidden;
     position: float;
     z-index: -1;
+    height: 100%;
 }
 
 .slide {
     position: float;
     top: 0;
     left: 0;
+    height: 100%;
 }
