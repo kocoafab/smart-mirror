@@ -118,7 +118,7 @@ dt {
 
 .remind {
     float: left;
-	margin-top: 200;
+    width: 100%;
 }
 
 ul.calendar {

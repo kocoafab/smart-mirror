@@ -47,6 +47,7 @@
 	<!-- remind -->
 	<div class="remind" ng-show="focus == 'remind'">
 		<ul class="calendar">
+		asdasdfasd
 			<li class="event" ng-repeat="event in calendar">
 				<div class="event-details">
 					<span class="day">{{event.start.format('dddd') | uppercase}}</span>
@@ -107,8 +108,12 @@
 					<dd>Shows a list of voice commands available to you.</dd>
 					<dt>Clear</dt>
 					<dd>Remove all information from screen</dd>
+					<dt>Weather</dt>
+					<dd>Show weather information</dd>
 					<dt>Remind</dt>
 					<dd>Show the reminders list.</dd>
+					<dt>Scenery</dt>
+					<dd>Change of scenery</dd>
 					<dt>Show map</dt>
 					<dd>Shows a map of your current city.</dd>
 					<dt>Show map of ________</dt>
@@ -120,7 +125,7 @@
 	</div>
 	<!-- Debug Buttons -->
 	<div class="debug-info">
-		<button ng-click="debug = true">Open Debug</button>
+		<!-- <button ng-click="debug = false">Open Debug</button> -->
 	</div>
 	<div class="debug-info" ng-show="debug == true">
 		<button ng-click="focus = (focus == 'greeting')?'default':'greeting'">Greeting</button>
