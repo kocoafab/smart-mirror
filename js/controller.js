@@ -28,6 +28,9 @@
         // Reset the command text
         var restCommand = function(){
           $scope.interimResult = DEFAULT_COMMAND_TEXT;
+          if ($scope.focus == "greeting"){
+        	  $scope.focus = "default";
+          }
         }
 
         _this.init = function() {
@@ -107,7 +110,7 @@
             // Hide everything and "sleep"
             AnnyangService.addCommand('Clear', function() {
                 console.debug("clear screen..");
-                $scope.focus = "sleep";
+                $scope.focus = "default";
             });
             
             // Go back to default view
@@ -134,8 +137,7 @@
 				$scope.focus = "weather";
             });
 
-
-            // Hide everything and "sleep"
+            // Show map
             AnnyangService.addCommand('Show (me a) map of *location', function(location) {
                 console.debug("Getting map of", location);
                 $scope.map = MapService.generateMap(location);
@@ -144,75 +146,88 @@
 
             // Zoom in map
             AnnyangService.addCommand('(map) zoom in', function() {
-                console.debug("Zoooooooom!!!");
+                console.debug("zoom in !!!");
                 $scope.map = MapService.zoomIn();
             });
 
             AnnyangService.addCommand('(map) zoom out', function() {
-                console.debug("Moooooooooz!!!");
+                console.debug("zoom out !!!");
                 $scope.map = MapService.zoomOut();
             });
 
             AnnyangService.addCommand('(map) zoom (to) *value', function(value) {
-                console.debug("Moooop!!!", value);
+                console.debug("zoom !!!", value);
                 $scope.map = MapService.zoomTo(value);
             });
 
             AnnyangService.addCommand('(map) reset zoom', function() {
-                console.debug("Zoooommmmmzzz00000!!!");
+                console.debug("reset zoom !!!");
                 $scope.map = MapService.reset();
                 $scope.focus = "map";
             });
 
-            // Search images
-            AnnyangService.addCommand('Show me *term', function(term) {
-                console.debug("Showing", term);
-            });
-
             // Change name
-            AnnyangService.addCommand('My (name is)(name\'s) *name', function(name) {
-                console.debug("Hi", name, "nice to meet you");
+            AnnyangService.addCommand('(I am)(I\'m) *name', function(name) {
+                console.debug("I am ", name, " nice to meet you");
                 $scope.user.name = name;
                 $scope.focus = "greeting";
-            });
-
-            // Set a reminder
-            AnnyangService.addCommand('Remind me to *task', function(task) {
-                console.debug("I'll remind you to", task);
-            });
-
-            // Clear reminders
-            AnnyangService.addCommand('Clear reminders', function() {
-                console.debug("Clearing reminders");
             });
 
             // Check the time
             AnnyangService.addCommand('what time is it', function(task) {
                  console.debug("It is", moment().format('h:mm:ss a'));
-		$scope.focus = "time";
+                 $scope.focus = "time";
             });
 
-            // Turn lights off
-            AnnyangService.addCommand('(turn) (the) :state (the) light(s) *action', function(state, action) {
-                HueService.performUpdate(state + " " + action);
+            // Remind
+            AnnyangService.addCommand('remind', function(task) {
+                 console.debug("Remind schedules");
+                 $scope.focus = "remind";
             });
 
-            //Show giphy image
-            AnnyangService.addCommand('giphy *img', function(img) {
-                GiphyService.init(img).then(function(){
-                    $scope.gifimg = GiphyService.giphyImg();
-                    $scope.focus = "gif";
-                });
+            // Scenery
+            AnnyangService.addCommand('scenery', function(task) {
+                 console.debug("Ok, I'll change of scenery for you");
+                 $scope.focus = "scenery";
             });
+            
+            $scope.slides = [
+                 {image: 'img/1.jpg', description: 'image 01'},
+                 {image: 'img/2.jpg', description: 'image 02'},
+                 {image: 'img/3.jpg', description: 'image 03'},
+                 {image: 'img/4.jpg', description: 'image 04'},
+                 {image: 'img/5.jpg', description: 'image 05'}
+             ];
+            
+            $scope.currentIndex = 0;
 
-            // Show xkcd comic
-            AnnyangService.addCommand('Show xkcd', function(state, action) {
-                console.debug("Fetching a comic for you.");
-                XKCDService.getXKCD().then(function(data){
-                    $scope.xkcd = data.img;
-                    $scope.focus = "xkcd";
-                });
+            $scope.setCurrentSlideIndex = function (index) {
+            	$scope.currentIndex = index;
+            };
+
+            $scope.isCurrentSlideIndex = function (index) {
+            	return $scope.currentIndex === index;
+            };
+            
+			$scope.prevSlide = function () {
+				$scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
+			};
+			
+			$scope.nextSlide = function () {
+				$scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
+			};
+            
+			// Scenery previous
+            AnnyangService.addCommand('(scenery) previous', function() {
+                console.debug("chagne to previous scenery !!!");
+                $scope.prevSlide();
             });
+            
+            // Scenery next
+            AnnyangService.addCommand('(scenery) next', function() {
+                console.debug("chagne to next scenery !!!");
+                $scope.nextSlide();
+            });			
 
             var resetCommandTimeout;
             //Track when the Annyang is listening to us
@@ -229,8 +244,32 @@
 
         _this.init();
     }
+    
+    function slideAnimation() {
+        return {
+            addClass: function (element, className, done) {
+                if (className == 'ng-hide') {
+                	TweenMax.to(element, 0.5, {left: -element.parent().width(), onComplete: done });                
+                }
+                else {
+                    done();
+                }
+            },
+            removeClass: function (element, className, done) {
+                if (className == 'ng-hide') {
+                	element.removeClass('ng-hide');
 
+                    TweenMax.set(element, { left: element.parent().width() });
+                    TweenMax.to(element, 0.5, {left: 0, onComplete: done });
+                }
+                else {
+                    done();
+                }
+            }
+        };
+    };
+    
     angular.module('SmartMirror')
-        .controller('MirrorCtrl', MirrorCtrl);
+        .controller('MirrorCtrl', MirrorCtrl).animation('.slide-animation', slideAnimation);
 
 }(window.angular));

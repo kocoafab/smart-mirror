@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
     <!-- App -->
     <script src="config.js"></script>
     <script src="js/rrule.js"></script>
@@ -28,28 +29,23 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,800,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/main.css" />
 	<link rel="stylesheet" href="css/weather-icons.css">
-	<script>
-		$(document).ready(function(){
-			$('.greeting').delay(5000).fadeOut(1000);
-		});
-	</script>
+	<link rel="stylesheet" href="css/slider.css">
+	
 </head>
 <body ng-controller="MirrorCtrl as commands">
+	<!-- time -->
+	<div class="top-left">
+		<div class="date grey">{{date | date : 'EEEE, MMM dd yyyy'}}</div>
+		<div class="time">{{date | date : 'hh:mm a'}}</div>
+	</div>	
 	<!-- greeting -->
 	<div class="greeting" ng-show="focus == 'greeting'">
 		<div class="container">
-			<p>Hi, <span class="color-yellow">{{user.name}} hehe </span><br/>nice to see you~</p>
+			<p>Hi, <span class="color-yellow">{{user.name}} </span><br/>nice to see you~</p>
 		</div>
-	</div>	
-	<!-- time -->
-	<div class="top-left" ng-show="focus == 'time'">
-		<div class="date grey">{{date | date : 'EEEE, MMM dd yyyy'}}</div>
-		<div class="time">{{date | date : 'hh:mm a'}}</div>
 	</div>	
 	<!-- remind -->
 	<div class="top-left" ng-show="focus == 'remind'">
-		<div class="date grey">{{date | date : 'EEEE, MMM dd yyyy'}}</div>
-		<div class="time">{{date | date : 'hh:mm a'}}</div>
 		<ul class="calendar">
 			<li class="event" ng-repeat="event in calendar">
 				<div class="event-details">
@@ -88,6 +84,14 @@
 			</div>
 		</div>
 	</div>	
+
+	<!--  -->
+	<div class="scenery" ng-show="focus == 'scenery'">		
+		<div class="container slider">
+		    <img ng-repeat="slide in slides" class="slide" ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
+		</div>
+	</div>
+	
 	<div class="container">
 		<div class="middle-center">
 			<div class="contents-box map animate-grow" ng-show="focus == 'map'">
@@ -120,10 +124,10 @@
 	</div>
 	<div class="debug-info" ng-show="debug == true">
 		<button ng-click="focus = (focus == 'greeting')?'default':'greeting'">Greeting</button>
-		<button ng-click="focus = (focus == 'time')?'default':'time'">Time</button>
 		<button ng-click="focus = (focus == 'remind')?'default':'remind'">Remind</button>
 		<button ng-click="focus = (focus == 'weather')?'default':'weather'">Weather</button>
 		<button ng-click="focus = (focus == 'map')?'default':'map'">Map</button>
+		<button ng-click="focus = (focus == 'scenery')?'default':'scenery'">Scenery</button>
 		<button ng-click="focus = (focus == 'commands')?'default':'commands'">Commands</button>
 		<button ng-click="debug = false">Close Debug</button>
 		<!-- Has results -->

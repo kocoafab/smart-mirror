@@ -1,0 +1,11 @@
+.slider {
+    overflow: hidden;
+    position: float;
+    z-index: -1;
+}
+
+.slide {
+    position: float;
+    top: 0;
+    left: 0;
+}
